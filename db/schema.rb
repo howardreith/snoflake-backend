@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2) do
+ActiveRecord::Schema.define(version: 20181129112409) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,25 @@ ActiveRecord::Schema.define(version: 2) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_examples_on_user_id"
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string "name"
+    t.integer "group_id"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "creator_id"
+    t.index ["creator_id"], name: "index_groups_on_creator_id"
+  end
+
+  create_table "user_groups_memberships", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "group_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_user_groups_memberships_on_group_id"
+    t.index ["user_id"], name: "index_user_groups_memberships_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -34,4 +53,7 @@ ActiveRecord::Schema.define(version: 2) do
   end
 
   add_foreign_key "examples", "users"
+  add_foreign_key "groups", "users", column: "creator_id"
+  add_foreign_key "user_groups_memberships", "groups"
+  add_foreign_key "user_groups_memberships", "users"
 end
