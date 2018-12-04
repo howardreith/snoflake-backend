@@ -96,3 +96,41 @@ X-Runtime: 0.036943
 Vary: Origin
 Via: 1.1 vegur
 ```
+
+## Note
+Group and event interaction is designed such that all groups and events can be accessed via GET requests by any user, even someone who is not signed in. However, in order to create, update, or delete a group or event, you must be signed in and thus must have the token received in response to the Sign In action above. This token is included in the headers as you will observe below.
+
+### Create Group
+```
+curl "https://snoflake-api.herokuapp.com/groups" \
+  --include \
+  --request POST \
+  --header "Content-Type: application/json" \
+  --header "Authorization: Token token=${TOKEN}" \
+  --data '{
+    "group": {
+      "name": "'"${NAME}"'",
+      "description": "'"${DESCRIPTION}"'",
+      "creator_id": "'"${CREATOR}"'"
+    }
+  }'
+```
+
+$ TOKEN=BAhJIiU5MGQ5NDM3NGZjOGU5NmM3YmQ3MDIzYTM1OGYwZTRlMgY6BkVG--d9ce9285036f76c5084cb51521aad66c4173c5db NAME="sample group" DESCRIPTION="Its so sample" CREATOR=1 sh create-group.sh
+
+```
+HTTP/1.1 201 Created
+Server: Cowboy
+Date: Tue, 04 Dec 2018 20:08:37 GMT
+Connection: keep-alive
+Content-Type: application/json; charset=utf-8
+Etag: W/"53ad419d2f1c89241d3f805cc2d0da1b"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: 951d95f1-c670-449e-b9e3-f7565a37bfe7
+X-Runtime: 0.090142
+Vary: Origin
+Transfer-Encoding: chunked
+Via: 1.1 vegur
+
+{"group":{"id":1,"name":"sample group","group_id":null,"description":"Its so sample","created_at":"2018-12-04T20:08:38.212Z","updated_at":"2018-12-04T20:08:38.212Z","creator_id":1}}
+```
