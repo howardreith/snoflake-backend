@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181129112409) do
+ActiveRecord::Schema.define(version: 20181204155800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "events", force: :cascade do |t|
+    t.string "name"
+    t.string "location_address"
+    t.string "location_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "creator_id"
+    t.index ["creator_id"], name: "index_events_on_creator_id"
+  end
 
   create_table "examples", force: :cascade do |t|
     t.text "text", null: false
@@ -52,6 +62,7 @@ ActiveRecord::Schema.define(version: 20181129112409) do
     t.index ["token"], name: "index_users_on_token", unique: true
   end
 
+  add_foreign_key "events", "users", column: "creator_id"
   add_foreign_key "examples", "users"
   add_foreign_key "groups", "users", column: "creator_id"
   add_foreign_key "user_groups_memberships", "groups"
