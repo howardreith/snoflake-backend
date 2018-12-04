@@ -17,9 +17,10 @@ curl "https://snoflake-api.herokuapp.com/sign-up" \
       "password_confirmation": "'"${PASSWORD}"'"
     }
   }'
-  ```
+```
 $ EMAIL=sample@sample.com PASSWORD=sample sh sign-up.sh
 
+```
 HTTP/1.1 201 Created
 Server: Cowboy
 Date: Tue, 04 Dec 2018 19:55:46 GMT
@@ -34,6 +35,7 @@ Transfer-Encoding: chunked
 Via: 1.1 vegur
 
 {"user":{"id":2,"email":"sample@sample.com"}}
+```
 
 ### Sign In
 
@@ -52,6 +54,7 @@ curl "https://snoflake-api.herokuapp.com/sign-in" \
 
 $ EMAIL=sample@sample.com PASSWORD=sample sh sign-in.sh
 
+```
 HTTP/1.1 200 OK
 Server: Cowboy
 Date: Tue, 04 Dec 2018 19:57:32 GMT
@@ -65,7 +68,9 @@ Vary: Origin
 Transfer-Encoding: chunked
 Via: 1.1 vegur
 
+
 {"user":{"id":2,"email":"sample@sample.com","token":"BAhJIiU1MWRjNWY3ZWRiYmRmYzBkOTY2ZTg3ZGU4YmVlNGRlMwY6BkVG--688e5d773bd28d304b6047b293092455c3e1a38a"}}
+```
 
 ### Sign Out
 
@@ -79,6 +84,7 @@ curl "https://snoflake-api.herokuapp.com/sign-out" \
 
 $ TOKEN=BAhJIiU1MWRjNWY3ZWRiYmRmYzBkOTY2ZTg3ZGU4YmVlNGRlMwY6BkVG--688e5d773bd28d304b6047b293092455c3e1a38a sh sign-out.sh
 
+```
 HTTP/1.1 204 No Content
 Server: Cowboy
 Date: Tue, 04 Dec 2018 19:59:15 GMT
@@ -89,3 +95,4 @@ X-Request-Id: fac7b530-8aa2-4864-b917-00c58dc52673
 X-Runtime: 0.036943
 Vary: Origin
 Via: 1.1 vegur
+```
