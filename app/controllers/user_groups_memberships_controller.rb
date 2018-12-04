@@ -40,7 +40,7 @@ class UserGroupsMembershipsController < OpenReadController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_user_groups_membership
-      @user_groups_membership = current_user.user_groups_memberships.find(params[:user_id])
+      @user_groups_membership = current_user.user_groups_memberships.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.

@@ -9,7 +9,8 @@ curl "http://localhost:4741/events" \
     "event": {
       "name": "'"${NAME}"'",
       "location_address": "'"${ADDRESS}"'",
-      "location_name": "'"${LOCATIONNAME}"'"
+      "location_name": "'"${LOCATIONNAME}"'",
+      "creator_id": "'"${CREATOR}"'"
     }
   }'
 
