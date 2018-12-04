@@ -42,12 +42,12 @@ class EventsController < OpenReadController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_event
-      @event = current_user.events.find(params[:id])
+      @event = Event.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
     def event_params
-      params.require(:event).permit(:name, :location_address, :location_name, :creator_id)
+      params.require(:event).permit(:id, :name, :location_address, :location_name, :creator_id)
     end
 
     private :set_event, :event_params

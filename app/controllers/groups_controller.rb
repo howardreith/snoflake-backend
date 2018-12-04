@@ -43,7 +43,7 @@ class GroupsController < OpenReadController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_group
-      @group = current_user.groups.find(params[:id])
+      @group = Group.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.

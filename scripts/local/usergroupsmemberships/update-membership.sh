@@ -1,14 +1,14 @@
 #!/bin/bash
 
-curl "http://localhost:4741/user_events_plans" \
+curl "http://localhost:4741/user_groups_memberships/${ID}" \
   --include \
-  --request POST \
+  --request PATCH \
   --header "Content-Type: application/json" \
   --header "Authorization: Token token=${TOKEN}" \
   --data '{
-    "user_events_plan": {
+    "user_groups_membership": {
       "user_id": "'"${USER_ID}"'",
-      "event_id": "'"${EVENT_ID}"'"
+      "group_id": "'"${GROUP_ID}"'"
     }
   }'
 

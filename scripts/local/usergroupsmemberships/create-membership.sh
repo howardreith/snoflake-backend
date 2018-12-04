@@ -1,4 +1,5 @@
 #!/bin/bash
+# Join Group
 
 curl "http://localhost:4741/user_groups_memberships" \
   --include \
@@ -7,7 +8,6 @@ curl "http://localhost:4741/user_groups_memberships" \
   --header "Authorization: Token token=${TOKEN}" \
   --data '{
     "user_groups_membership": {
-      "user_id": "'"${USER_ID}"'",
       "group_id": "'"${GROUP_ID}"'"
     }
   }'
