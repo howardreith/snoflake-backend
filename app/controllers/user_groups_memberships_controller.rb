@@ -46,6 +46,6 @@ class UserGroupsMembershipsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_groups_membership_params
-      params.fetch(:user_groups_membership, {})
+      params.require(:user_groups_membership).permit(:group_id, :user_id)
     end
 end
