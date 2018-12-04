@@ -1,9 +1,9 @@
-#S'Noflake API#
+# S'Noflake API
 Updated 12/4/2018
 
 Here you will find information concerning how to interact with the API for the S'Noflake application. Examples are provided in the form of CURL scripts executed in a UNIX command line along with the expected responses on success.
 
-###Creating a new user###
+### Creating a new user
 
 ```
 curl "https://snoflake-api.herokuapp.com/sign-up" \
@@ -35,7 +35,7 @@ Via: 1.1 vegur
 
 {"user":{"id":2,"email":"sample@sample.com"}}
 
-###Sign In###
+### Sign In
 
 ```
 curl "https://snoflake-api.herokuapp.com/sign-in" \
@@ -67,7 +67,7 @@ Via: 1.1 vegur
 
 {"user":{"id":2,"email":"sample@sample.com","token":"BAhJIiU1MWRjNWY3ZWRiYmRmYzBkOTY2ZTg3ZGU4YmVlNGRlMwY6BkVG--688e5d773bd28d304b6047b293092455c3e1a38a"}}
 
-###Sign Out###
+### Sign Out
 
 ```
 curl "https://snoflake-api.herokuapp.com/sign-out" \
