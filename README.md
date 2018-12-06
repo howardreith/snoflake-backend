@@ -510,6 +510,8 @@ Via: 1.1 vegur
 
 ### Create Event
 
+If you're creating an event for a group, be sure to include the group ID in the relevant place. Note that in the current version it is one group per event.
+
 ```
 curl "https://snoflake-api.herokuapp.com/events" \
   --include \
@@ -521,7 +523,8 @@ curl "https://snoflake-api.herokuapp.com/events" \
       "name": "'"${NAME}"'",
       "location_address": "'"${ADDRESS}"'",
       "location_name": "'"${LOCATIONNAME}"'",
-      "creator_id": "'"${CREATOR}"'"
+      "creator_id": "'"${CREATOR}"'",
+      "group_id": "'"${GROUP}"'"
     }
   }'
 ```

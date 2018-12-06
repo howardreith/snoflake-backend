@@ -4,5 +4,6 @@ class EventSerializer < ActiveModel::Serializer
 
   has_many :users
   has_many :event_comments
+  has_one :group
 
 end

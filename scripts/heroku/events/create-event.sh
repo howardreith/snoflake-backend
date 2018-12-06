@@ -10,7 +10,8 @@ curl "https://snoflake-api.herokuapp.com/events" \
       "name": "'"${NAME}"'",
       "location_address": "'"${ADDRESS}"'",
       "location_name": "'"${LOCATIONNAME}"'",
-      "creator_id": "'"${CREATOR}"'"
+      "creator_id": "'"${CREATOR}"'",
+      "group_id": "'"${GROUP}"'"
     }
   }'
 
