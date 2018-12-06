@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181206121958) do
+ActiveRecord::Schema.define(version: 20181206150027) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,19 @@ ActiveRecord::Schema.define(version: 20181206121958) do
     t.bigint "group_id"
     t.index ["group_id"], name: "index_group_comments_on_group_id"
     t.index ["user_id"], name: "index_group_comments_on_user_id"
+  end
+
+  create_table "group_invitations", force: :cascade do |t|
+    t.bigint "inviter_id", null: false
+    t.bigint "invited_id", null: false
+    t.bigint "group_id", null: false
+    t.string "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "accepted"
+    t.index ["group_id"], name: "index_group_invitations_on_group_id"
+    t.index ["invited_id"], name: "index_group_invitations_on_invited_id"
+    t.index ["inviter_id"], name: "index_group_invitations_on_inviter_id"
   end
 
   create_table "groups", force: :cascade do |t|
@@ -96,6 +109,7 @@ ActiveRecord::Schema.define(version: 20181206121958) do
   add_foreign_key "events", "users", column: "creator_id"
   add_foreign_key "examples", "users"
   add_foreign_key "group_comments", "users"
+  add_foreign_key "group_invitations", "groups"
   add_foreign_key "groups", "users", column: "creator_id"
   add_foreign_key "user_events_plans", "events"
   add_foreign_key "user_events_plans", "users"

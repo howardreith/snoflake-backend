@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :groups
   resources :group_comments
   resources :event_comments
+  resources :group_invitations
 
   # Custom routes
   post '/sign-up' => 'users#signup'
