@@ -15,7 +15,7 @@ class GroupInvitationsController < OpenReadController
 
   # POST /group_invitations
   def create
-    @group_invitation = current_user.sent_invitations.build(group_invitation_params)
+    @group_invitation = current_user.sent_group_invitations.build(group_invitation_params)
 
     if @group_invitation.save
       render json: @group_invitation, status: :created
@@ -47,4 +47,7 @@ class GroupInvitationsController < OpenReadController
     def group_invitation_params
       params.require(:group_invitation).permit(:message, :inviter_id, :invited_id, :group_id, :accepted)
     end
+
+    private :set_group_invitation, :group_invitation_params
+
 end

@@ -3,4 +3,5 @@ class Event < ApplicationRecord
   has_many :users, through: :user_events_plans
   belongs_to :creator, class_name: "User"
   has_many :event_comments
+  has_many :event_invitations
 end
