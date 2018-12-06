@@ -311,6 +311,102 @@ Vary: Origin
 Via: 1.1 vegur
 ```
 
+### Comment in a Group
+
+Commenting in a group involves creating a new group_comment with the relevant group's ID.
+
+```
+curl "https://snoflake-api.herokuapp.com/group_comments" \
+  --include \
+  --request POST \
+  --header "Content-Type: application/json" \
+  --header "Authorization: Token token=${TOKEN}" \
+  --data '{
+    "group_comment": {
+      "content": "'"${CONTENT}"'",
+      "group_id": "'"${GROUP}"'"
+    }
+  }'
+```
+
+TOKEN=BAhJIiUwMjFmN2RkMTk0Mjg4YWRlNDIzNGFhMTIxMzBjZmRmMAY6BkVG--bfa174973cfa0e444b34ca01601937a90207bbbf CONTENT="sample comment" GROUP=2 sh create-group-comment.sh
+
+```
+HTTP/1.1 201 Created
+Server: Cowboy
+Date: Thu, 06 Dec 2018 12:55:58 GMT
+Connection: keep-alive
+Content-Type: application/json; charset=utf-8
+Etag: W/"70ca297f4aecb2798d193f6efaccb656"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: 1cd46858-25db-4d63-9080-1a1d293ff68d
+X-Runtime: 0.034062
+Vary: Origin
+Transfer-Encoding: chunked
+Via: 1.1 vegur
+
+{"group_comment":{"id":1,"content":"sample comment","created_at":"2018-12-06T12:55:59.023Z","updated_at":"2018-12-06T12:55:59.023Z","user":{"id":2,"email":"sample@sample.com"},"group":{"id":2,"name":"sample group","description":"Its so sample","created_at":"2018-12-04T20:12:42.797Z","updated_at":"2018-12-04T20:12:42.797Z","creator_id":1}}}
+```
+
+### Update Group Comment
+
+```
+curl "https://snoflake-api.herokuapp.com/group_comments/${ID}" \
+  --include \
+  --request PATCH \
+  --header "Content-Type: application/json" \
+  --header "Authorization: Token token=${TOKEN}" \
+  --data '{
+    "group_comment": {
+      "content": "'"${CONTENT}"'"
+    }
+  }'
+```
+
+TOKEN=BAhJIiUwMjFmN2RkMTk0Mjg4YWRlNDIzNGFhMTIxMzBjZmRmMAY6BkVG--bfa174973cfa0e444b34ca01601937a90207bbbf CONTENT="updated comment" ID=1 sh update-group-comment.sh
+
+```
+HTTP/1.1 200 OK
+Server: Cowboy
+Date: Thu, 06 Dec 2018 13:10:47 GMT
+Connection: keep-alive
+Content-Type: application/json; charset=utf-8
+Etag: W/"72ceee10db7ae0b84d5b1a78cf5ba079"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: f14e5557-fb3c-48ab-8a0d-0a7f95b7dafc
+X-Runtime: 0.050087
+Vary: Origin
+Transfer-Encoding: chunked
+Via: 1.1 vegur
+
+{"group_comment":{"id":1,"content":"updated comment","created_at":"2018-12-06T12:55:59.023Z","updated_at":"2018-12-06T13:10:47.764Z","user":{"id":2,"email":"sample@sample.com"},"group":{"id":2,"name":"sample group","description":"Its so sample","created_at":"2018-12-04T20:12:42.797Z","updated_at":"2018-12-04T20:12:42.797Z","creator_id":1}}}
+```
+
+### Delete Group Comment
+
+```
+curl "https://snoflake-api.herokuapp.com/group_comments/${ID}" \
+  --include \
+  --request DELETE \
+  --header "Content-Type: application/json" \
+  --header "Authorization: Token token=${TOKEN}" \
+```
+
+TOKEN=BAhJIiUwMjFmN2RkMTk0Mjg4YWRlNDIzNGFhMTIxMzBjZmRmMAY6BkVG--bfa174973cfa0e444b34ca01601937a90207bbbf ID=1 sh delete-group-comment.sh
+
+```
+HTTP/1.1 204 No Content
+Server: Cowboy
+Date: Thu, 06 Dec 2018 13:17:12 GMT
+Content-Length: 0
+Connection: keep-alive
+Cache-Control: no-cache
+X-Request-Id: 254bee48-b27b-4fe3-881b-2d1323430142
+X-Runtime: 0.030648
+Vary: Origin
+Via: 1.1 vegur
+```
+
 ### Get All Memberships
 
 For now, this will give a list of all memberships in the database.
@@ -495,6 +591,102 @@ Connection: keep-alive
 Cache-Control: no-cache
 X-Request-Id: 300e4e73-416b-484f-a92d-76b8868a6c1a
 X-Runtime: 0.017279
+Vary: Origin
+Via: 1.1 vegur
+```
+
+### Comment in an Event
+
+Commenting in a group involves creating a new group_comment with the relevant group's ID.
+
+```
+curl "https://snoflake-api.herokuapp.com/event_comments" \
+  --include \
+  --request POST \
+  --header "Content-Type: application/json" \
+  --header "Authorization: Token token=${TOKEN}" \
+  --data '{
+    "event_comment": {
+      "content": "'"${CONTENT}"'",
+      "event_id": "'"${EVENT}"'"
+    }
+  }'
+```
+
+TOKEN=BAhJIiUwMjFmN2RkMTk0Mjg4YWRlNDIzNGFhMTIxMzBjZmRmMAY6BkVG--bfa174973cfa0e444b34ca01601937a90207bbbf CONTENT="sample comment" EVENT=2 sh create-event-comment.sh
+
+```
+HTTP/1.1 201 Created
+Server: Cowboy
+Date: Thu, 06 Dec 2018 13:20:24 GMT
+Connection: keep-alive
+Content-Type: application/json; charset=utf-8
+Etag: W/"f41827012ac2471ab804033febceb4b4"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: 6f9f7483-ccfe-496e-85bd-a3489f46d97f
+X-Runtime: 0.046457
+Vary: Origin
+Transfer-Encoding: chunked
+Via: 1.1 vegur
+
+{"event_comment":{"id":1,"content":"sample comment","created_at":"2018-12-06T13:20:25.343Z","updated_at":"2018-12-06T13:20:25.343Z","user":{"id":2,"email":"sample@sample.com"},"event":{"id":2,"name":"sample event","location_address":"sample event address","location_name":"Sample Location","created_at":"2018-12-04T20:44:17.747Z","updated_at":"2018-12-04T20:44:17.747Z","creator_id":1}}}
+```
+
+### Update Group Comment
+
+```
+curl "https://snoflake-api.herokuapp.com/event_comments/${ID}" \
+  --include \
+  --request PATCH \
+  --header "Content-Type: application/json" \
+  --header "Authorization: Token token=${TOKEN}" \
+  --data '{
+    "event_comment": {
+      "content": "'"${CONTENT}"'"
+    }
+  }'
+```
+
+TOKEN=BAhJIiUwMjFmN2RkMTk0Mjg4YWRlNDIzNGFhMTIxMzBjZmRmMAY6BkVG--bfa174973cfa0e444b34ca01601937a90207bbbf CONTENT="updated comment" ID=1 sh update-event-comment.sh
+
+```
+HTTP/1.1 200 OK
+Server: Cowboy
+Date: Thu, 06 Dec 2018 13:21:40 GMT
+Connection: keep-alive
+Content-Type: application/json; charset=utf-8
+Etag: W/"38fea2e968a83286e0c3d062d9860b76"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: 3832b1e1-0ee5-4d8d-843e-bff25b16c221
+X-Runtime: 0.054271
+Vary: Origin
+Transfer-Encoding: chunked
+Via: 1.1 vegur
+
+{"event_comment":{"id":1,"content":"updated comment","created_at":"2018-12-06T13:20:25.343Z","updated_at":"2018-12-06T13:21:41.825Z","user":{"id":2,"email":"sample@sample.com"},"event":{"id":2,"name":"sample event","location_address":"sample event address","location_name":"Sample Location","created_at":"2018-12-04T20:44:17.747Z","updated_at":"2018-12-04T20:44:17.747Z","creator_id":1}}}
+```
+
+### Delete Group Comment
+
+```
+curl "https://snoflake-api.herokuapp.com/event_comments/${ID}" \
+  --include \
+  --request DELETE \
+  --header "Content-Type: application/json" \
+  --header "Authorization: Token token=${TOKEN}" \
+```
+
+TOKEN=BAhJIiUwMjFmN2RkMTk0Mjg4YWRlNDIzNGFhMTIxMzBjZmRmMAY6BkVG--bfa174973cfa0e444b34ca01601937a90207bbbf ID=1 sh delete-event-comment.sh
+
+```
+HTTP/1.1 204 No Content
+Server: Cowboy
+Date: Thu, 06 Dec 2018 13:22:32 GMT
+Content-Length: 0
+Connection: keep-alive
+Cache-Control: no-cache
+X-Request-Id: ba8c530f-f820-4558-b149-2937c7da9d14
+X-Runtime: 0.047856
 Vary: Origin
 Via: 1.1 vegur
 ```
