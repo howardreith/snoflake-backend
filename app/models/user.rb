@@ -8,4 +8,5 @@ class User < ApplicationRecord
   has_many :user_events_plans
   has_many :events, through: :user_events_plans
   has_many :group_comments
+  has_many :event_comments
 end
