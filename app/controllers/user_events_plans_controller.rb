@@ -45,7 +45,7 @@ class UserEventsPlansController < OpenReadController
 
     # Only allow a trusted parameter "white list" through.
     def user_events_plan_params
-      params.require(:user_events_plan).permit(:user_id, :event_id)
+      params.require(:user_events_plan).permit(:user_id, :event_id, :rsvp)
     end
 
     private :set_user_events_plan, :user_events_plan_params
