@@ -837,6 +837,42 @@ Via: 1.1 vegur
 {"event_invitation":{"id":1,"message":"","accepted":true,"group_inviter":{"id":2,"name":"sample group","description":"Its so sample","created_at":"2018-12-04T20:12:42.797Z","updated_at":"2018-12-04T20:12:42.797Z","creator_id":1},"user_inviter":{"id":2,"email":"sample@sample.com"},"invited":{"id":2,"email":"sample@sample.com"},"event":{"id":3,"name":"","location_address":"","location_name":"","created_at":"2018-12-06T18:38:34.377Z","updated_at":"2018-12-06T18:38:34.377Z","creator_id":2}}}
 ```
 
+### Update RSVP
+
+RSVP is stored in the join table between events and users, user_events_plans.
+
+```
+curl "https://snoflake-api.herokuapp.com/user_events_plans/${ID}" \
+  --include \
+  --request PATCH \
+  --header "Content-Type: application/json" \
+  --header "Authorization: Token token=${TOKEN}" \
+  --data '{
+    "user_events_plan": {
+      "rsvp": "'"${RSVP}"'"
+    }
+  }'
+```
+
+$ TOKEN=BAhJIiUxY2YxNDlkMWYyYjhkNTJmZDM0YTkwNTYwMzg4MDU2OAY6BkVG--6f472f90d2d637b30ebea27f2972092ae959b70d ID=4 RSVP="yes" sh update-plan.sh
+
+```
+HTTP/1.1 200 OK
+Server: Cowboy
+Date: Thu, 06 Dec 2018 19:29:15 GMT
+Connection: keep-alive
+Content-Type: application/json; charset=utf-8
+Etag: W/"b2cb93949d4a6079d65bda1828e615aa"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: e3af3b4a-e887-4cdb-a529-bce6efeb35ae
+X-Runtime: 0.049022
+Vary: Origin
+Transfer-Encoding: chunked
+Via: 1.1 vegur
+
+{"user_events_plan":{"id":4,"created_at":"2018-12-06T19:28:47.801Z","updated_at":"2018-12-06T19:29:15.510Z","rsvp":"yes","user":{"id":2,"email":"sample@sample.com"},"event":{"id":2,"name":"sample event","location_address":"sample event address","location_name":"Sample Location","created_at":"2018-12-04T20:44:17.747Z","updated_at":"2018-12-04T20:44:17.747Z","creator_id":1}}}
+```
+
 ### Get All Plans
 
 This will return a list of all plans presently in the database.
