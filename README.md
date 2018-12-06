@@ -392,7 +392,7 @@ curl "https://snoflake-api.herokuapp.com/group_comments/${ID}" \
   --header "Authorization: Token token=${TOKEN}" \
 ```
 
-TOKEN=BAhJIiUwMjFmN2RkMTk0Mjg4YWRlNDIzNGFhMTIxMzBjZmRmMAY6BkVG--bfa174973cfa0e444b34ca01601937a90207bbbf ID=1 sh delete-group-comment.sh
+$ TOKEN=BAhJIiUwMjFmN2RkMTk0Mjg4YWRlNDIzNGFhMTIxMzBjZmRmMAY6BkVG--bfa174973cfa0e444b34ca01601937a90207bbbf ID=1 sh delete-group-comment.sh
 
 ```
 HTTP/1.1 204 No Content
@@ -405,6 +405,78 @@ X-Request-Id: 254bee48-b27b-4fe3-881b-2d1323430142
 X-Runtime: 0.030648
 Vary: Origin
 Via: 1.1 vegur
+```
+
+### Invite Someone to Group
+
+Inviting someone to a group involves creating a new group_invitation with the group ID and the user's ID.
+
+```
+curl "https://snoflake-api.herokuapp.com/group_invitations" \
+  --include \
+  --request POST \
+  --header "Content-Type: application/json" \
+  --header "Authorization: Token token=${TOKEN}" \
+  --data '{
+    "group_invitation": {
+      "message": "'"${MESSAGE}"'",
+      "group_id": "'"${GROUP}"'",
+      "invited_id": "'"${INVITED}"'"
+    }
+  }'
+```
+$ TOKEN=BAhJIiVjN2U5ZTQ2Y2U1Mzk0NjkzZGNjZjJmMTg4YzNjZmQwNAY6BkVG--90c9ce9b3cc0e8d8b19842c2a3fb1959abc6e2c5 GROUP=2 INVITED=3 sh create-group-invitation.sh
+
+```
+HTTP/1.1 201 Created
+Server: Cowboy
+Date: Thu, 06 Dec 2018 15:31:33 GMT
+Connection: keep-alive
+Content-Type: application/json; charset=utf-8
+Etag: W/"e66609196f2804871713b318e1afd2c1"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: df233ba4-efb6-4735-8af6-8d148e5871c7
+X-Runtime: 0.043979
+Vary: Origin
+Transfer-Encoding: chunked
+Via: 1.1 vegur
+
+{"group_invitation":{"id":1,"message":"","accepted":null,"group":{"id":2,"name":"sample group","description":"Its so sample","created_at":"2018-12-04T20:12:42.797Z","updated_at":"2018-12-04T20:12:42.797Z","creator_id":1},"inviter":{"id":2,"email":"sample@sample.com"},"invited":{"id":3,"email":"example@example.com"}}}
+```
+
+### Update a Group Invitation
+
+Updating a gruop invitation should primarily be used to accept or reject the invitation.
+
+```
+curl "https://snoflake-api.herokuapp.com/group_invitations/${ID}" \
+  --include \
+  --request PATCH \
+  --header "Content-Type: application/json" \
+  --header "Authorization: Token token=${TOKEN}" \
+  --data '{
+    "group_invitation": {
+      "accepted": "'"${ACCEPTED}"'"
+    }
+  }'
+```
+$ TOKEN=BAhJIiU1MWI1OTlkZWZhYmYwYTExNjZjMWVhOGM3OTg1Y2YwZAY6BkVG--7ed36bc1cbae0314400aa68e5a67edf01174950e ID=1 ACCEPTED=true sh update-group-invitation.sh
+
+```
+HTTP/1.1 200 OK
+Server: Cowboy
+Date: Thu, 06 Dec 2018 15:37:59 GMT
+Connection: keep-alive
+Content-Type: application/json; charset=utf-8
+Etag: W/"4771fcbede65d056754fda390bccc887"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: 07696ebb-45c6-4d78-8872-2691e7145a95
+X-Runtime: 0.099906
+Vary: Origin
+Transfer-Encoding: chunked
+Via: 1.1 vegur
+
+{"group_invitation":{"id":1,"message":"","accepted":true,"group":{"id":2,"name":"sample group","description":"Its so sample","created_at":"2018-12-04T20:12:42.797Z","updated_at":"2018-12-04T20:12:42.797Z","creator_id":1},"inviter":{"id":2,"email":"sample@sample.com"},"invited":{"id":3,"email":"example@example.com"}}}
 ```
 
 ### Get All Memberships
