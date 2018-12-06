@@ -1,6 +1,6 @@
 #!/bin/bash
 
-curl "http://localhost:4741/event_invitations" \
+curl "https://snoflake-api.herokuapp.com/event_invitations" \
 --include \
 --request POST \
 --header "Content-Type: application/json" \

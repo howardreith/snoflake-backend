@@ -446,7 +446,7 @@ Via: 1.1 vegur
 
 ### Update a Group Invitation
 
-Updating a gruop invitation should primarily be used to accept or reject the invitation.
+Updating a gruop invitation should primarily be used to accept or reject the invitation. Note that in the present version accepting an invitation does not automatically join the group. I am figuring that in the event of acceptance, in addition to the PATCH call made to update the invitation in the database, an additional call to join the group will also be made.
 
 ```
 curl "https://snoflake-api.herokuapp.com/group_invitations/${ID}" \
@@ -761,6 +761,80 @@ X-Request-Id: ba8c530f-f820-4558-b149-2937c7da9d14
 X-Runtime: 0.047856
 Vary: Origin
 Via: 1.1 vegur
+```
+
+### Send Event Invitation
+
+Sending an event invitation involves creating a new EventInvitation in the database. If the user is creating the event invitation on behalf of a group, be sure to include the group's ID where appropriate as provided in the example below. Group ID is indexed but optional.
+
+```
+curl "https://snoflake-api.herokuapp.com/event_invitations" \
+--include \
+--request POST \
+--header "Content-Type: application/json" \
+--header "Authorization: Token token=${TOKEN}" \
+--data '{
+  "event_invitation": {
+    "message": "'"${MESSAGE}"'",
+    "group_inviter_id": "'"${GROUP}"'",
+    "invited_id": "'"${INVITED}"'",
+    "event_id": "'"${EVENT}"'"
+  }
+}'
+```
+
+$ TOKEN=BAhJIiVmNzMyZWM5MjljMjlhOTQ2MjE3OTZkZTkzMmY5OTQ2ZgY6BkVG--710b7d44e2ce91ff21e7a9f086f181ea74f3c3e4 GROUP=2 EVENT=3 INVITED=2 sh create-event-invitation.sh
+
+```
+HTTP/1.1 201 Created
+Server: Cowboy
+Date: Thu, 06 Dec 2018 18:48:55 GMT
+Connection: keep-alive
+Content-Type: application/json; charset=utf-8
+Etag: W/"fa1b4d9615a15477c82b0bba21e2ffea"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: 44827a52-35e5-4f70-b1bc-c7f8b07a62a8
+X-Runtime: 0.065190
+Vary: Origin
+Transfer-Encoding: chunked
+Via: 1.1 vegur
+
+{"event_invitation":{"id":1,"message":"","accepted":null,"group_inviter":{"id":2,"name":"sample group","description":"Its so sample","created_at":"2018-12-04T20:12:42.797Z","updated_at":"2018-12-04T20:12:42.797Z","creator_id":1},"user_inviter":{"id":2,"email":"sample@sample.com"},"invited":{"id":2,"email":"sample@sample.com"},"event":{"id":3,"name":"","location_address":"","location_name":"","created_at":"2018-12-06T18:38:34.377Z","updated_at":"2018-12-06T18:38:34.377Z","creator_id":2}}}
+```
+
+### Update Event Invitation
+
+Updating an event invitation should almost exclusively be used for accepting or rejecting the invitation. Note that accepting an invitation is not the same thing as setting one's RSVP, which is stored separately in user_events_plans (though in terms of front end design we may wish to have a toggle for RSVP that will update the API with one's RSVP at the same time the invitation is accepted or rejected).
+
+```
+curl "https://snoflake-api.herokuapp.com/event_invitations/${ID}" \
+--include \
+--request PATCH \
+--header "Content-Type: application/json" \
+--header "Authorization: Token token=${TOKEN}" \
+--data '{
+  "event_invitation": {
+    "accepted": "'"${ACCEPTED}"'"
+  }
+}'
+```
+$ TOKEN=BAhJIiVmNzMyZWM5MjljMjlhOTQ2MjE3OTZkZTkzMmY5OTQ2ZgY6BkVG--710b7d44e2ce91ff21e7a9f086f181ea74f3c3e4 ACCEPTED=true ID=1 sh update-event-invitation.sh
+
+```
+HTTP/1.1 200 OK
+Server: Cowboy
+Date: Thu, 06 Dec 2018 18:50:44 GMT
+Connection: keep-alive
+Content-Type: application/json; charset=utf-8
+Etag: W/"46055263d5ba3257942e3d1b49c78ade"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: d1c3f5f2-155c-4299-85fc-86686364794d
+X-Runtime: 0.038813
+Vary: Origin
+Transfer-Encoding: chunked
+Via: 1.1 vegur
+
+{"event_invitation":{"id":1,"message":"","accepted":true,"group_inviter":{"id":2,"name":"sample group","description":"Its so sample","created_at":"2018-12-04T20:12:42.797Z","updated_at":"2018-12-04T20:12:42.797Z","creator_id":1},"user_inviter":{"id":2,"email":"sample@sample.com"},"invited":{"id":2,"email":"sample@sample.com"},"event":{"id":3,"name":"","location_address":"","location_name":"","created_at":"2018-12-06T18:38:34.377Z","updated_at":"2018-12-06T18:38:34.377Z","creator_id":2}}}
 ```
 
 ### Get All Plans
