@@ -1,5 +1,5 @@
 # S'Noflake API
-Updated 12/4/2018
+Updated 12/6/2018
 
 Here you will find information concerning how to interact with the API for the S'Noflake application. Examples are provided in the form of CURL scripts executed in a UNIX command line along with the expected responses on success.
 
