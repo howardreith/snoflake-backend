@@ -3,9 +3,10 @@ class UserGroupsMembershipsController < OpenReadController
 
   # GET /user_groups_memberships
   def index
-    @user_groups_memberships = UserGroupsMembership.all
-
-    render json: @user_groups_memberships
+    # @user_groups_memberships = UserGroupsMembership.all
+    #
+    # render json: @user_groups_memberships
+    render json: current_user.user_groups_memberships
   end
 
   # GET /user_groups_memberships/1
@@ -36,6 +37,8 @@ class UserGroupsMembershipsController < OpenReadController
   # DELETE /user_groups_memberships/1
   def destroy
     @user_groups_membership.destroy
+
+    head :no_content
   end
 
     # Use callbacks to share common setup or constraints between actions.

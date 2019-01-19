@@ -40,7 +40,6 @@ class GroupsController < OpenReadController
     head :no_content
   end
 
-
     # Use callbacks to share common setup or constraints between actions.
     def set_group
       @group = Group.find(params[:id])
@@ -48,7 +47,7 @@ class GroupsController < OpenReadController
 
     # Only allow a trusted parameter "white list" through.
     def group_params
-      params.require(:group).permit(:name, :description, :creator_id)
+      params.require(:group).permit(:name, :description, :creator_id, :id_to_destroy)
     end
 
     private :set_group, :group_params
